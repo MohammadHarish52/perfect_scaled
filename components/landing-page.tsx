@@ -1,51 +1,44 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import Navbar from "./Navbar";
+import Marquee from "@/components/ui/Marque";
+import Opentext from "@/icons/opentext.png";
+import Fiverr from "@/icons/fiver.jpg";
+import Monday from "@/icons/monday.jpg";
+import Nike from "@/icons/nike.png";
+import CocaCola from "@/icons/coca.png";
+import Paramount from "@/icons/paramount.png";
 import gsap from "gsap";
+
+const partners = [
+  { name: "opentext", logo: Opentext },
+  { name: "fiverr", logo: Fiverr },
+  { name: "monday", logo: Monday },
+  { name: "Nike", logo: Nike },
+  { name: "Coca Cola", logo: CocaCola },
+  { name: "paramount", logo: Paramount },
+];
+
+const firstRow = partners.slice(0, partners.length / 2);
+const secondRow = partners.slice(partners.length / 2);
 
 export function LandingPage() {
   const titleRef = useRef(null);
   const cubeRef = useRef(null);
 
   useEffect(() => {
-    // Rotating text animation
-    gsap.to(titleRef.current, {
-      rotationX: -180,
-      duration: 2,
-      ease: "power2.inOut",
-      repeat: -1,
-      yoyo: true,
-      transformOrigin: "50% 50% -100px",
-      onUpdate: function () {
-        const progress = this.progress();
-        if (progress < 0.5) {
-          gsap.to(titleRef.current, {
-            color: gsap.utils.interpolate("#000000", "#00b67d", progress * 2),
-          });
-        } else {
-          gsap.to(titleRef.current, {
-            color: gsap.utils.interpolate(
-              "#00b67d",
-              "#000000",
-              (progress - 0.5) * 2
-            ),
-          });
-        }
-      },
-    });
-
-    // 3D cube animation
+    // Cube animation
     gsap.to(cubeRef.current, {
       rotationY: 360,
-      duration: 4,
+      rotationX: 360,
+      duration: 10,
       repeat: -1,
       ease: "none",
     });
 
-    // Up and down animation
+    // Cube up and down animation
     gsap.to(cubeRef.current, {
       y: -20,
       duration: 1.5,
@@ -53,6 +46,8 @@ export function LandingPage() {
       yoyo: true,
       ease: "power1.inOut",
     });
+
+    // ... (other animations)
   }, []);
 
   return (
@@ -69,52 +64,66 @@ export function LandingPage() {
                 >
                   PERFECTLY SCALED
                 </h1>
-                <p className="text-sm sm:text-base text-[#707070] mb-4">
+                <p className="text-sm sm:text-base text-[#707070] mb-4 font-sans">
                   Optimize Your K8s Stack:{" "}
                   <span className="font-bold text-black">Cut Costs by 50%</span>{" "}
                   <br />
                   Performance Tuning with Autonomous Performance Tuning
                 </p>
               </div>
-              <button className="px-7 py-3 rounded-[60px] font-bold bg-[#00b67d] text-[black] w-[146px]">
+              <button className=" font-sans px-7 py-3 rounded-[60px] font-bold bg-[#00b67d] text-[black] w-[146px]">
                 Get Started
               </button>
             </div>
 
-            <div
-              ref={cubeRef}
-              className="w-full md:w-1/2 aspect-square bg-[#00b67d] rounded-lg max-w-[300px] md:max-w-none transform-3d"
-            >
-              <div className="cube-face cube-face-front"></div>
-              <div className="cube-face cube-face-back"></div>
-              <div className="cube-face cube-face-right"></div>
-              <div className="cube-face cube-face-left"></div>
-              <div className="cube-face cube-face-top"></div>
-              <div className="cube-face cube-face-bottom"></div>
+            <div className="w-full md:w-1/2 flex justify-center items-center h-[300px]">
+              <div ref={cubeRef} className="cube w-[100px] h-[100px] relative">
+                <div className="cube__face cube__face--front"></div>
+                <div className="cube__face cube__face--back"></div>
+                <div className="cube__face cube__face--right"></div>
+                <div className="cube__face cube__face--left"></div>
+                <div className="cube__face cube__face--top"></div>
+                <div className="cube__face cube__face--bottom"></div>
+              </div>
             </div>
           </div>
         </main>
       </div>
-      <footer className="py-8">
-        <div className="container mx-auto flex flex-wrap justify-center gap-4 sm:gap-8">
-          {[
-            "opentext",
-            "fiverr",
-            "monday",
-            "ironclad",
-            "firefly",
-            "paramount",
-          ].map((partner) => (
-            <Image
-              key={partner}
-              src={`/placeholder.svg`}
-              alt={`${partner} logo`}
-              width={100}
-              height={40}
-              className="w-20 sm:w-24 md:w-28"
-            />
+      <footer className="py-8 overflow-hidden bg-[#eff8c9] relative">
+        <Marquee pauseOnHover className="[--duration:20s]">
+          {firstRow.map((partner) => (
+            <div
+              key={partner.name}
+              className="flex-shrink-0 mx-4 flex items-center justify-center"
+            >
+              <Image
+                src={partner.logo}
+                alt={`${partner.name} logo`}
+                width={100}
+                height={40}
+                className="w-auto h-8 object-contain mix-blend-multiply"
+              />
+            </div>
           ))}
-        </div>
+        </Marquee>
+        <Marquee reverse pauseOnHover className="[--duration:20s] mt-4">
+          {secondRow.map((partner) => (
+            <div
+              key={partner.name}
+              className="flex-shrink-0 mx-4 flex items-center justify-center gap-10"
+            >
+              <Image
+                src={partner.logo}
+                alt={`${partner.name} logo`}
+                width={100}
+                height={40}
+                className="w-auto h-8 object-contain mix-blend-multiply"
+              />
+            </div>
+          ))}
+        </Marquee>
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#eff8c9]"></div>
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#eff8c9]"></div>
       </footer>
     </div>
   );

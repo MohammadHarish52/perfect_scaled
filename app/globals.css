@@ -7,3 +7,82 @@
 body {
   font-family: "Protest Guerrilla", sans-serif;
 }
+.cube-wrapper {
+  perspective: 1000px;
+  width: 200px;
+  height: 200px;
+}
+
+.cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg) rotateY(30deg);
+  transition: transform 0.5s;
+}
+
+.cube__face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: rgba(0, 182, 125, 0.8);
+  border: 1px solid #eff8c9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: white;
+}
+
+.cube__face--front {
+  transform: rotateY(0deg) translateZ(100px);
+}
+.cube__face--right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+.cube__face--back {
+  transform: rotateY(180deg) translateZ(100px);
+}
+.cube__face--left {
+  transform: rotateY(-90deg) translateZ(100px);
+}
+.cube__face--top {
+  transform: rotateX(90deg) translateZ(100px);
+}
+.cube__face--bottom {
+  transform: rotateX(-90deg) translateZ(100px);
+}
+.perfectly,
+.scaled {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.perfectly .front,
+.perfectly .back,
+.scaled .front,
+.scaled .back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perfectly .front,
+.scaled .front {
+  color: black;
+  z-index: 2;
+}
+
+.perfectly .back,
+.scaled .back {
+  color: #00b67d;
+  transform: rotateX(180deg);
+}

@@ -37,11 +37,11 @@ const Navbar = () => {
 
         {/* Navigation links */}
         <div
-          className={`w-full md:w-auto ${
+          className={`w-full md:w-auto font-sans ${
             isMenuOpen ? "block" : "hidden"
           } md:block mt-4 md:mt-0`}
         >
-          <div className="flex flex-col md:flex-row md:items-center md:space-x-4 lg:space-x-8">
+          <div className="flex flex-col md:flex-row md:items-center font-sans md:space-x-4 lg:space-x-8 border border-black py-3 px-7 rounded-full">
             <Link href="#" className="text-[#000] py-2 md:py-0">
               Platform
             </Link>
@@ -63,10 +63,10 @@ const Navbar = () => {
             isMenuOpen ? "block" : "hidden"
           } md:block mt-4 md:mt-0 space-y-2 md:space-y-0 md:space-x-2`}
         >
-          <button className="w-full md:w-auto px-7 py-3 rounded-[60px] font-bold text-[#000] border border-[#000]">
+          <button className=" font-sans w-full md:w-auto px-7 py-3 rounded-[60px] font-bold text-[#000] border border-[#000]">
             Log in
           </button>
-          <button className="w-full md:w-auto px-7 py-3 rounded-[60px] font-bold bg-[#00b67d] text-[black]">
+          <button className=" font-sans w-full md:w-auto px-7 py-3 rounded-[60px] font-bold bg-[#00b67d] text-[black]">
             Book a Demo
           </button>
         </div>
