@@ -2,14 +2,102 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function FooterComponent() {
+  const emeraldBoxRef = useRef(null);
+  const leftCubeRef = useRef(null);
+  const rightCubeRef = useRef(null);
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const emeraldBox = emeraldBoxRef.current;
+    const leftCube = leftCubeRef.current;
+    const rightCube = rightCubeRef.current;
+    const content = contentRef.current;
+
+    gsap.fromTo(
+      emeraldBox,
+      { scale: 0.8 },
+      {
+        scale: 1,
+        scrollTrigger: {
+          trigger: emeraldBox,
+          start: "top bottom",
+          end: "bottom center",
+          scrub: true,
+        },
+      }
+    );
+
+    // Add a new animation to scale back to original size
+    gsap.to(emeraldBox, {
+      scale: 0.8,
+      scrollTrigger: {
+        trigger: emeraldBox,
+        start: "bottom center",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+
+    gsap.fromTo(
+      leftCube,
+      { x: "-100%" },
+      {
+        x: 0,
+        scrollTrigger: {
+          trigger: emeraldBox,
+          start: "top bottom",
+          end: "bottom center",
+          scrub: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      rightCube,
+      { x: "100%" },
+      {
+        x: 0,
+        scrollTrigger: {
+          trigger: emeraldBox,
+          start: "top bottom",
+          end: "bottom center",
+          scrub: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      content,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        scrollTrigger: {
+          trigger: emeraldBox,
+          start: "top center",
+          end: "center center",
+          scrub: true,
+        },
+      }
+    );
+  }, []);
+
   return (
     <footer className="bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-12">
-          <div className="relative bg-emerald-500 rounded-full p-16 w-full">
-            <div className="absolute top-4 left-4">
+          <div
+            ref={emeraldBoxRef}
+            className="relative bg-emerald-500 rounded-full p-16 w-full overflow-hidden"
+          >
+            <div ref={leftCubeRef} className="absolute top-4 left-4">
               <svg
                 width="60"
                 height="60"
@@ -22,7 +110,7 @@ export function FooterComponent() {
                 <rect x="30" y="30" width="20" height="20" fill="#059669" />
               </svg>
             </div>
-            <div className="absolute bottom-4 right-4">
+            <div ref={rightCubeRef} className="absolute bottom-4 right-4">
               <svg
                 width="60"
                 height="60"
@@ -34,7 +122,7 @@ export function FooterComponent() {
                 <rect x="30" y="10" width="20" height="20" fill="#FBBF24" />
               </svg>
             </div>
-            <div className="text-center">
+            <div ref={contentRef} className="text-center">
               <h2 className="text-4xl leading-[95px] tracking-[4%] sm:text-5xl md:text-[80px] font-bold text-center mb-4 text-[#fff]">
                 REDUCE YOUR <br /> CLOUD BILL
               </h2>
