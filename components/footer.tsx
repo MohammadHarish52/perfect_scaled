@@ -1,18 +1,18 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import FooterDown from "./footer-down";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function FooterComponent() {
-  const emeraldBoxRef = useRef(null);
-  const leftCubeRef = useRef(null);
-  const rightCubeRef = useRef(null);
-  const contentRef = useRef(null);
+  const emeraldBoxRef = useRef<HTMLDivElement>(null);
+  const leftCubeRef = useRef<HTMLDivElement>(null);
+  const rightCubeRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const emeraldBox = emeraldBoxRef.current;
@@ -20,78 +20,89 @@ export function FooterComponent() {
     const rightCube = rightCubeRef.current;
     const content = contentRef.current;
 
+    if (!emeraldBox || !leftCube || !rightCube || !content) return;
+
+    // Common ScrollTrigger settings for smoother animations
+    const commonScrollTriggerOptions = {
+      start: "top 80%",
+      end: "bottom 60%",
+      scrub: true,
+      // markers: true, // Uncomment for debugging
+    };
+
+    // Animate Emerald Box Scaling
     gsap.fromTo(
       emeraldBox,
-      { scale: 0.8 },
+      { scale: 0.8, opacity: 0 },
       {
         scale: 1,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: emeraldBox,
-          start: "top bottom",
-          end: "bottom center",
-          scrub: true,
+          ...commonScrollTriggerOptions,
         },
       }
     );
 
-    // Add a new animation to scale back to original size
-    gsap.to(emeraldBox, {
-      scale: 0.8,
-      scrollTrigger: {
-        trigger: emeraldBox,
-        start: "bottom center",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-
+    // Animate Left Cube Sliding In
     gsap.fromTo(
       leftCube,
-      { x: "-100%" },
+      { x: "-100%", opacity: 0 },
       {
-        x: 0,
+        x: "0%",
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
         scrollTrigger: {
-          trigger: emeraldBox,
-          start: "top bottom",
-          end: "bottom center",
-          scrub: true,
+          trigger: leftCube,
+          ...commonScrollTriggerOptions,
         },
       }
     );
 
+    // Animate Right Cube Sliding In
     gsap.fromTo(
       rightCube,
-      { x: "100%" },
+      { x: "100%", opacity: 0 },
       {
-        x: 0,
+        x: "0%",
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
         scrollTrigger: {
-          trigger: emeraldBox,
-          start: "top bottom",
-          end: "bottom center",
-          scrub: true,
+          trigger: rightCube,
+          ...commonScrollTriggerOptions,
         },
       }
     );
 
+    // Animate Content Fade-In and Slide-Up
     gsap.fromTo(
       content,
-      { opacity: 0, y: 50 },
+      { y: 50, opacity: 0 },
       {
-        opacity: 1,
         y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
         scrollTrigger: {
-          trigger: emeraldBox,
-          start: "top center",
-          end: "center center",
-          scrub: true,
+          trigger: content,
+          ...commonScrollTriggerOptions,
         },
       }
     );
+
+    // Cleanup function to kill ScrollTrigger instances when component unmounts
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
   }, []);
 
   return (
     <footer className="bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-[60px] py-[32px] ">
         <div className="py-12">
           <div
             ref={emeraldBoxRef}
@@ -141,71 +152,7 @@ export function FooterComponent() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="border-t border-gray-200 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                  Stay up-to-date with PerfectScale and gain additional access
-                  to our team.
-                </h3>
-                <form className="mt-4 sm:flex sm:max-w-md">
-                  <Input
-                    type="email"
-                    placeholder="Email"
-                    className="w-full px-5 py-3 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500 sm:max-w-xs border-gray-300 rounded-md"
-                  />
-                  <div className="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-                    <Button
-                      type="submit"
-                      className="w-full bg-emerald-600 text-white hover:bg-emerald-700"
-                    >
-                      Submit
-                    </Button>
-                  </div>
-                </form>
-              </div>
-              <div>
-                <h2 className="text-4xl font-bold">PERFECT SCALE</h2>
-              </div>
-            </div>
-            <div className="md:col-span-2 grid grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase mb-4">
-                  Navigation
-                </h3>
-                <ul className="space-y-4">
-                  {["Platform", "Pricing", "Resources", "Company"].map(
-                    (item) => (
-                      <li key={item}>
-                        <a
-                          href="#"
-                          className="text-base text-gray-500 hover:text-gray-900"
-                        >
-                          {item}
-                        </a>
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="mt-8 border-t border-gray-200 pt-8 flex justify-between">
-            <p className="text-base text-gray-400">
-              &copy; 2023 PerfectScale, Inc. All rights reserved.
-            </p>
-            <div className="flex space-x-6">
-              <a href="#" className="text-gray-400 hover:text-gray-500">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-500">
-                Terms of Service
-              </a>
-            </div>
-          </div>
+          <FooterDown />
         </div>
       </div>
     </footer>

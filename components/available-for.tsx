@@ -1,91 +1,99 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 export function AvailableForComponent() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Register the ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Select all elements with the 'provider-card' class within the container
+    const cards = container.querySelectorAll<HTMLElement>(".provider-card");
+
+    // Iterate over each card and create a ScrollTrigger instance
+    cards.forEach((card) => {
+      gsap.fromTo(
+        card,
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.8,
+          ease: "power3.inOut",
+          scrollTrigger: {
+            trigger: card,
+            toggleActions: "play reverse play reverse",
+            // markers: true,
+          },
+        }
+      );
+    });
+
+    // Cleanup function to kill ScrollTrigger instances when component unmounts
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
   const providers = [
     {
       name: "Microsoft Azure",
-      icon: (
-        <svg viewBox="0 0 150 150" className="w-32 h-12">
-          <path
-            d="M116.297 94.2671L94.2533 72.2234L71.8576 94.6191H116.297V94.2671ZM70.4457 92.8551L93.9013 69.3995L70.4457 45.9439V92.8551ZM94.2533 66.9236L116.297 44.8799V89.3189L94.2533 66.9236ZM33 33H117V117H33V33Z"
-            fill="black"
-          />
-        </svg>
-      ),
+      logoUrl: "https://cdn-icons-png.flaticon.com/512/873/873209.png",
     },
     {
       name: "Rancher",
-      icon: (
-        <svg viewBox="0 0 200 200" className="w-32 h-12">
-          <path
-            d="M39.5 39.5h121v121h-121v-121zm60.5 30.25v60.5h60.5v-60.5h-60.5zm-30.25 0v30.25h30.25v-30.25h-30.25zm0 30.25h-30.25v30.25h30.25v-30.25z"
-            fill="black"
-          />
-        </svg>
-      ),
+      logoUrl:
+        "https://www.rancher.cn/img/brand-guidelines/assets/logos/png/black/rancher-logo-stacked-black.png",
     },
     {
       name: "Google Cloud",
-      icon: (
-        <svg viewBox="0 0 200 200" className="w-32 h-12">
-          <path
-            d="M152.942 80.846l-10.773-8.658-39.323-31.615-2.929-2.354h-29.288l-2.929 2.354-39.323 31.615-10.773 8.658-7.321 5.881v26.546l7.321 5.881 10.773 8.658 39.323 31.615 2.929 2.354h29.288l2.929-2.354 39.323-31.615 10.773-8.658 7.321-5.881v-26.546l-7.321-5.881zm-62.025-29.969l29.288 23.546v47.092l-29.288 23.546-29.288-23.546v-47.092l29.288-23.546z"
-            fill="black"
-          />
-        </svg>
-      ),
+      logoUrl:
+        "https://www.naswa.org/sites/default/files/styles/affiliate_logo/public/2022-02/Google-CLoud-EG.png?itok=eQpT6RaK",
     },
     {
       name: "Red Hat",
-      icon: (
-        <svg viewBox="0 0 200 200" className="w-32 h-12">
-          <path
-            d="M155.5 100c0 30.652-24.848 55.5-55.5 55.5S44.5 130.652 44.5 100 69.348 44.5 100 44.5s55.5 24.848 55.5 55.5zm-55.5-33.3c-18.39 0-33.3 14.91-33.3 33.3s14.91 33.3 33.3 33.3 33.3-14.91 33.3-33.3-14.91-33.3-33.3-33.3z"
-            fill="black"
-          />
-        </svg>
-      ),
+      logoUrl:
+        "https://www.netscout.com/sites/default/files/2022-03/02/images/Red-Hat_grey-1500x400.png",
     },
     {
-      name: "Aselsan",
-      icon: (
-        <svg viewBox="0 0 200 200" className="w-32 h-12">
-          <path
-            d="M100 44.5l55.5 55.5-55.5 55.5-55.5-55.5L100 44.5zm0 22.2L66.7 100l33.3 33.3L133.3 100 100 66.7z"
-            fill="black"
-          />
-        </svg>
-      ),
+      name: "Neon",
+      logoUrl:
+        "https://logos-world.net/wp-content/uploads/2023/07/Aveda-Logo.png",
     },
     {
       name: "AWS",
-      icon: (
-        <svg viewBox="0 0 200 200" className="w-32 h-12">
-          <path
-            d="M95.708 121.788l-17.522 7.92v-15.84l17.522 7.92zm0-43.576l-17.522-7.92v15.84l17.522-7.92zm26.283 21.788l-17.522 7.92v-15.84l17.522 7.92zm0-43.576l-17.522-7.92v15.84l17.522-7.92zM78.186 100l17.522 7.92v-15.84L78.186 100zm26.283 0l17.522 7.92v-15.84L104.469 100z"
-            fill="black"
-          />
-        </svg>
-      ),
+      logoUrl:
+        "https://static-00.iconduck.com/assets.00/amazon-aws-icon-2048x1224-ug1v1ts2.png",
     },
   ];
 
   return (
-    <section className="bg-white py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl leading-[95px] tracking-[4%] sm:text-5xl md:text-[100px] font-bold text-center mb-4">
+    <section className="bg-white py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-4xl sm:text-[100px] font-bold text-center mb-[88px]">
           AVAILABLE FOR
         </h2>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          ref={containerRef}
+          className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3"
+        >
           {providers.map((provider) => (
             <div
               key={provider.name}
-              className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center"
+              className="provider-card bg-white border border-black rounded-[20px] p-4 flex items-center justify-center aspect-[3/2]"
             >
-              {provider.icon}
-              <span className="mt-4 text-lg font-medium text-gray-900">
-                {provider.name}
-              </span>
+              <img
+                src={provider.logoUrl}
+                alt={`${provider.name} logo`}
+                className="w-[160px] h-[44px] object-contain"
+              />
             </div>
           ))}
         </div>
