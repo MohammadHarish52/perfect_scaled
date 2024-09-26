@@ -8,10 +8,11 @@ import { features } from "@/constants/data";
 gsap.registerPlugin(ScrollTrigger);
 
 export function PerfectscaleDifference() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
+    if (!container) return;
     const cards = Array.from(container.querySelectorAll(".feature-card"));
 
     gsap.fromTo(
