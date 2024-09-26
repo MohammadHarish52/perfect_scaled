@@ -1,4 +1,4 @@
-import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import { ArrowDownIcon, ArrowUpIcon, LucideIcon } from "lucide-react";
 
 const StatCard = ({
   icon: Icon,
