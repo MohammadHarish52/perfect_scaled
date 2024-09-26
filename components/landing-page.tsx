@@ -35,24 +35,22 @@ export function LandingPage() {
       rotationX: 360,
       duration: 10,
       repeat: -1,
-      ease: "none",
+      ease: "linear",
     });
 
     // Cube up and down animation
     gsap.to(cubeRef.current, {
-      y: -20,
+      y: -140,
       duration: 1.5,
       repeat: -1,
       yoyo: true,
       ease: "power1.inOut",
     });
-
-    // ... (other animations)
   }, []);
 
   return (
     <div className="min-h-screen bg-[#eff8c9]">
-      <div className="px-4 sm:px-8 md:px-[60px] py-8">
+      <div className="px-4 sm:px-8 md:px-[60px] py-8 overflow-hidden">
         <Navbar />
         <main className="py-8 md:py-16">
           <div className="flex flex-col md:flex-row justify-between items-center md:items-start">

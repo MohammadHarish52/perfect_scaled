@@ -94,7 +94,6 @@ export function FooterComponent() {
       }
     );
 
-    // Cleanup function to kill ScrollTrigger instances when component unmounts
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
@@ -137,18 +136,17 @@ export function FooterComponent() {
               <h2 className="text-4xl leading-[95px] tracking-[4%] sm:text-5xl md:text-[80px] font-bold text-center mb-4 text-[#fff]">
                 REDUCE YOUR <br /> CLOUD BILL
               </h2>
-              <p className="text-white mb-8">
+              <p className="text-white mb-8 font-sans">
                 Install in minutes and instantly receive actionable
                 intelligence.
               </p>
-              <div className="flex justify-center space-x-4">
-                <Button variant="secondary">Start a Trial</Button>
-                <Button
-                  variant="outline"
-                  className="bg-emerald-600 text-white hover:bg-emerald-700"
-                >
+              <div className="flex justify-center space-x-4 font-sans">
+                <button className=" font-sans w-full md:w-auto px-7 py-3 rounded-[60px] font-bold text-[#000]  bg-white">
+                  Start a Trial
+                </button>
+                <button className=" font-sans w-full md:w-auto px-7 py-3 rounded-[60px] font-bold bg-[#00b67d] text-[black] border border-[#000]">
                   Book a Demo
-                </Button>
+                </button>
               </div>
             </div>
           </div>

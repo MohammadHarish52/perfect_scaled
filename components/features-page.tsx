@@ -5,44 +5,16 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowDownIcon,
+  ArrowUpIcon,
   CheckIcon,
   CogIcon,
   ChartBarIcon,
   LucideIcon,
+  DollarSignIcon,
+  TrashIcon,
+  PiggyBank,
 } from "lucide-react";
-
-const StatCard = ({
-  icon: Icon,
-  title,
-  value,
-  change,
-  changeType,
-}: {
-  icon: LucideIcon;
-  title: string;
-  value: string;
-  change: string;
-  changeType: "positive" | "negative";
-}) => (
-  <div className="bg-white  p-8 shadow-sm font-sans rounded-[12px] h-[173px] w-[265px]">
-    <div className="flex items-center text-emerald-500 mb-1">
-      <Icon className="w-4 h-4 mr-1" />
-      <span className="text-sm">{title}</span>
-    </div>
-    <div className="text-xl font-bold mb-2">{value}</div>
-    <div className="flex justify-between items-center text-xs">
-      <span className="text-black">
-        {title === "Savings" ? "All time Savings" : `${title} Change`}
-      </span>
-      <span className="bg-black text-white px-2 py-1 rounded-full flex items-center">
-        {changeType === "negative" && (
-          <ArrowDownIcon className="w-3 h-3 mr-1" />
-        )}
-        {change}
-      </span>
-    </div>
-  </div>
-);
+import StatCard from "./StatCard";
 
 const FeatureCard = ({
   icon: Icon,
@@ -55,7 +27,7 @@ const FeatureCard = ({
   description: string;
   highlighted?: boolean;
 }) => (
-  <div className="flex flex-col items-center text-center">
+  <div className="flex flex-col  items-center text-center">
     <div
       className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
         highlighted ? "bg-emerald-100" : "bg-gray-100"
@@ -188,7 +160,7 @@ export function FeaturesPageComponent() {
                   }}
                 >
                   <StatCard
-                    icon={CogIcon}
+                    icon={DollarSignIcon}
                     title="Cost"
                     value="$188,224"
                     change="5.6%"
@@ -202,7 +174,7 @@ export function FeaturesPageComponent() {
                   }}
                 >
                   <StatCard
-                    icon={CogIcon}
+                    icon={TrashIcon}
                     title="Waste"
                     value="$42,844"
                     change="3%"
@@ -216,7 +188,7 @@ export function FeaturesPageComponent() {
                   }}
                 >
                   <StatCard
-                    icon={CogIcon}
+                    icon={PiggyBank}
                     title="Savings"
                     value="$26,283"
                     change="$30.1B"
@@ -228,16 +200,14 @@ export function FeaturesPageComponent() {
                   ref={(el: HTMLDivElement | null) => {
                     if (el) cardRefs.current[3] = el;
                   }}
-                >
-                  <div className="w-full h-full bg-gray-800 rounded-lg"></div>
-                </div>
+                ></div>
               </div>
             </div>
           </div>
         </div>
 
         <div className="mt-16">
-          <div className="max-w-4xl mx-auto">
+          <div className="w-full ">
             <div
               className="grid grid-cols-1 md:grid-cols-3 gap-8"
               ref={featureCardsRef}
