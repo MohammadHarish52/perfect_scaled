@@ -3,70 +3,56 @@ import { Button } from "./ui/button";
 
 const FooterDown = () => {
   return (
-    <div>
-      <div className="border-t border-gray-200 py-12 mt-[224px]  ">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="space-y-8">
-            <div className="font-sans">
-              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">
-                Stay up-to-date with PerfectScale and gain additional access to
-                our team.
-              </h3>
-              <form className="mt-4 sm:flex sm:max-w-md">
+    <div className="border-t border-gray-200 py-12 mt-[224px]">
+      <div className="flex flex-col md:flex-row justify-between">
+        {/* Left side: Email form and logo */}
+        <div className="flex flex-col space-y-8">
+          {/* Email Form */}
+          <div className="flex flex-col gap-29px">
+            <h3 className="text-base font-semibold text-black font-sans text-thin">
+              Stay up-to-date with PerfectScale and <br />
+              gain additional access to our team.
+            </h3>
+            <div>
+              <form className="flex mt-4 font-sans">
                 <Input
                   type="email"
                   placeholder="Email"
-                  className="w-full px-5 py-3 placeholder-gray-500 focus:ring-emerald-500 focus:border-emerald-500 sm:max-w-xs border-gray-300 rounded-md"
+                  className="rounded-full px-5 py-2 border-gray-300 focus:ring-emerald-500 focus:border-emerald-500"
                 />
-                <div className="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-                  <Button
-                    type="submit"
-                    className="w-full bg-emerald-600 text-white hover:bg-emerald-700"
-                  >
-                    Submit
-                  </Button>
-                </div>
+                <Button
+                  type="submit"
+                  className="ml-2 px-5 py-2 bg-emerald-600 text-white rounded-full hover:bg-emerald-700"
+                >
+                  Submit
+                </Button>
               </form>
             </div>
-            <div>
-              <h2 className="text-4xl font-bold">
-                PERFECT <br />
-                SCALE
-              </h2>
-            </div>
           </div>
-          <div className="md:col-span-2 grid grid-cols-2 gap-8 font-sans">
-            <div>
-              <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase mb-4">
-                Navigation
-              </h3>
-              <ul className="space-y-4">
-                {["Platform", "Pricing", "Resources", "Company"].map((item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="text-base text-gray-500 hover:text-gray-900"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+
+          {/* Logo */}
+          <div>
+            <h2 className="text-5xl font-bold leading-none text-[100px]">
+              PERFECT <br />
+              SCALE
+            </h2>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-200 pt-8 flex justify-between font-sans">
-          <p className="text-base text-gray-400">
-            &copy; 2023 PerfectScale, Inc. All rights reserved.
-          </p>
-          <div className="flex space-x-6">
-            <a href="#" className="text-gray-400 hover:text-gray-500">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-gray-500">
-              Terms of Service
-            </a>
-          </div>
+
+        {/* Right side: Navigation */}
+        <div className="flex flex-col items-end space-y-4 mt-8 md:mt-0 font-sans font-bold">
+          <ul className="space-y-2 text-left">
+            {["Platform", "Pricing", "Resources", "Company"].map((item) => (
+              <li key={item}>
+                <a
+                  href="#"
+                  className="text-lg text-black hover:text-gray-900 text-[40px]"
+                >
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

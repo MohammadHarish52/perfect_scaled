@@ -61,48 +61,53 @@ export function FeaturesPageComponent() {
     });
 
     // Animate emerald background
-    tl.fromTo(
-      emeraldBgRef.current,
-      {
-        width: "60%",
-        height: "200px",
-        borderRadius: "24px",
-        opacity: 0.5,
-      },
-      {
-        width: "100%",
-        height: "488px",
-        borderRadius: "24px",
-        opacity: 1,
-        duration: 1,
-      }
-    );
+    if (emeraldBgRef.current) {
+      tl.fromTo(
+        emeraldBgRef.current,
+        {
+          width: "60%",
+          height: "200px",
+          borderRadius: "24px",
+          opacity: 0.5,
+        },
+        {
+          width: "100%",
+          height: "488px",
+          borderRadius: "24px",
+          opacity: 1,
+          duration: 1,
+        }
+      );
+    }
 
     // Animate cards
     cardRefs.current.forEach((card, index) => {
-      gsap.fromTo(
-        card,
-        {
-          opacity: 0,
-          x: index % 2 === 0 ? -50 : 50, // Cards come from left or right
-        },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.5,
-          scrollTrigger: {
-            trigger: card,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse",
+      if (card) {
+        gsap.fromTo(
+          card,
+          {
+            opacity: 0,
+            x: index % 2 === 0 ? -50 : 50,
           },
-        }
-      );
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.5,
+            scrollTrigger: {
+              trigger: card,
+              start: "top 80%",
+              end: "bottom 20%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      }
     });
 
+    // Animate feature cards
     if (featureCardsRef.current) {
       gsap.fromTo(
-        Array.from(featureCardsRef.current.children), // Convert HTMLCollection to array
+        Array.from(featureCardsRef.current.children),
         {
           y: 50,
           opacity: 0,
