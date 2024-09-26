@@ -46,7 +46,7 @@ export function FeaturesPageComponent() {
   const containerRef = useRef(null);
   const emeraldBgRef = useRef(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const featureCardsRef = useRef(null);
+  const featureCardsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -100,26 +100,27 @@ export function FeaturesPageComponent() {
       );
     });
 
-    // Animate feature cards
-    gsap.fromTo(
-      (featureCardsRef.current as HTMLElement)!.children,
-      {
-        y: 50,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: featureCardsRef.current,
-          start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none reverse",
+    if (featureCardsRef.current) {
+      gsap.fromTo(
+        Array.from(featureCardsRef.current.children), // Convert HTMLCollection to array
+        {
+          y: 50,
+          opacity: 0,
         },
-      }
-    );
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: featureCardsRef.current,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
   }, []);
 
   return (
