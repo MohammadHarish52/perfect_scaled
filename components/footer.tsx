@@ -101,13 +101,13 @@ export function FooterComponent() {
 
   return (
     <footer className="bg-white">
-      <div className="w-full px-[60px] py-[32px] ">
+      <div className="w-full px-4 sm:px-8 md:px-[60px] py-8 md:py-[32px]">
         <div className="py-12">
           <div
             ref={emeraldBoxRef}
-            className="relative bg-emerald-500 rounded-full p-16 w-full overflow-hidden"
+            className="relative bg-emerald-500 rounded-full p-8 sm:p-16 w-full overflow-hidden aspect-[8/9] sm:aspect-[3/1] flex flex-col justify-center items-center"
           >
-            <div ref={leftCubeRef} className="absolute top-4 left-4">
+            <div ref={leftCubeRef} className="absolute top-8 left-4">
               <svg
                 width="60"
                 height="60"
@@ -133,18 +133,18 @@ export function FooterComponent() {
               </svg>
             </div>
             <div ref={contentRef} className="text-center">
-              <h2 className="text-4xl leading-[95px] tracking-[4%] sm:text-5xl md:text-[80px] font-bold text-center mb-4 text-[#fff]">
+              <h2 className="text-3xl sm:text-4xl md:text-[80px] lg:text-[100px] leading-tight sm:leading-[95px] lg:leading-[110px] tracking-[4%] font-bold text-center mb-4 text-[#fff]">
                 REDUCE YOUR <br /> CLOUD BILL
               </h2>
               <p className="text-white mb-8 font-sans">
                 Install in minutes and instantly receive actionable
                 intelligence.
               </p>
-              <div className="flex justify-center space-x-4 font-sans">
-                <button className=" font-sans w-full md:w-auto px-7 py-3 rounded-[60px] font-bold text-[#000]  bg-white">
+              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 font-sans">
+                <button className="font-sans w-full sm:w-auto px-5 py-2 text-sm sm:text-base rounded-[60px] font-bold text-[#000] bg-white">
                   Start a Trial
                 </button>
-                <button className=" font-sans w-full md:w-auto px-7 py-3 rounded-[60px] font-bold bg-[#00b67d] text-[black] border border-[#000]">
+                <button className="font-sans w-full sm:w-auto px-5 py-2 text-sm sm:text-base rounded-[60px] font-bold bg-[#00b67d] text-[black] border border-[#000]">
                   Book a Demo
                 </button>
               </div>

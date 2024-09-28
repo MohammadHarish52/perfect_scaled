@@ -40,7 +40,7 @@ export function LandingPage() {
 
     // Cube up and down animation
     gsap.to(cubeRef.current, {
-      y: -140,
+      y: -50,
       duration: 1.5,
       repeat: -1,
       yoyo: true,
@@ -49,7 +49,7 @@ export function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#eff8c9]">
+    <div className="min-h-screen bg-[#eff8c9] overflow-x-hidden">
       <div className="px-4 sm:px-8 md:px-[60px] py-8 overflow-hidden">
         <Navbar />
         <main className="py-8 md:py-16">

@@ -25,7 +25,7 @@ const FeatureCard = ({
   description: string;
   highlighted?: boolean;
 }) => (
-  <div className="flex flex-col  items-center text-center">
+  <div className="flex flex-col items-center text-center">
     <div
       className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
         highlighted ? "bg-emerald-100" : "bg-gray-100"
@@ -130,7 +130,7 @@ export function FeaturesPageComponent() {
 
   return (
     <div
-      className="bg-white min-h-screen p-4 sm:p-8 my-8 sm:my-[224px]"
+      className="bg-white min-h-screen  my-8 sm:my-[224px] overflow-x-hidden"
       ref={containerRef}
     >
       <div className="max-w-4xl mx-auto">
@@ -145,7 +145,7 @@ export function FeaturesPageComponent() {
 
         <div className="flex justify-center">
           <div
-            className="bg-emerald-500 rounded-3xl p-16 mb-8 sm:mb-12 overflow-hidden"
+            className="bg-emerald-500 rounded-3xl p-8 sm:p-16 mb-8 sm:mb-12 overflow-hidden"
             ref={emeraldBgRef}
           >
             <div className="bg-gray-900 rounded-2xl p-4 flex h-full">
@@ -156,7 +156,7 @@ export function FeaturesPageComponent() {
                 <div className="w-6 h-6 bg-gray-700 rounded-full mb-2"></div>
                 <div className="w-6 h-6 bg-gray-700 rounded-full"></div>
               </div>
-              <div className="flex-1 grid grid-cols-2 gap-4 p-4">
+              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
                 <div
                   className="flex justify-center items-center"
                   ref={(el: HTMLDivElement | null) => {
@@ -211,9 +211,9 @@ export function FeaturesPageComponent() {
         </div>
 
         <div className="mt-16">
-          <div className="w-full ">
+          <div className="w-full">
             <div
-              className="grid grid-cols-1 md:grid-cols-3 gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
               ref={featureCardsRef}
             >
               <FeatureCard

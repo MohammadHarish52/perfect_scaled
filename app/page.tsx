@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div>
       <LandingPage />
-      {/* <FeaturesPageComponent /> */}
+      <FeaturesPageComponent />
       <PerfectscaleDifference />
       <AvailableForComponent />
       <FooterComponent />
