@@ -1,17 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
+  ChartBarIcon,
   CheckIcon,
   CogIcon,
-  ChartBarIcon,
-  LucideIcon,
   DollarSignIcon,
-  TrashIcon,
+  LucideIcon,
   PiggyBank,
+  TrashIcon,
 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import StatCard from "./StatCard";
 
 const FeatureCard = ({
@@ -25,20 +25,24 @@ const FeatureCard = ({
   description: string;
   highlighted?: boolean;
 }) => (
-  <div className="flex flex-col items-center text-center">
+  <div className="flex flex-col items-center text-center p-6 rounded-2xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
     <div
-      className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
+      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center mb-4 transition-colors duration-300 ${
         highlighted ? "bg-emerald-100" : "bg-gray-100"
       }`}
     >
       <Icon
-        className={`w-8 h-8 ${
+        className={`w-7 h-7 sm:w-8 sm:h-8 ${
           highlighted ? "text-emerald-500" : "text-gray-500"
         }`}
       />
     </div>
-    <h3 className="text-lg font-semibold mb-2 font-sans">{title}</h3>
-    <p className="text-sm text-gray-600 font-sans">{description}</p>
+    <h3 className="text-lg sm:text-xl font-bold mb-3 font-sans leading-tight">
+      {title}
+    </h3>
+    <p className="text-sm sm:text-base text-gray-600 font-sans leading-relaxed">
+      {description}
+    </p>
   </div>
 );
 
@@ -47,8 +51,17 @@ export function FeaturesPageComponent() {
   const emeraldBgRef = useRef(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const featureCardsRef = useRef<HTMLDivElement | null>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const tl = gsap.timeline({
@@ -56,46 +69,44 @@ export function FeaturesPageComponent() {
         trigger: containerRef.current,
         start: "top center",
         end: "center center",
-        scrub: true,
+        scrub: 1,
       },
     });
 
-    // Animate emerald background
+    // Animate emerald background with better easing
     if (emeraldBgRef.current) {
       tl.fromTo(
         emeraldBgRef.current,
         {
-          width: "60%",
-          height: "200px",
-          borderRadius: "24px",
-          opacity: 0.5,
+          scale: 0.9,
+          opacity: 0,
         },
         {
-          width: "100%",
-          height: "488px",
-          borderRadius: "24px",
+          scale: 1,
           opacity: 1,
           duration: 1,
+          ease: "power2.out",
         }
       );
     }
 
-    // Animate cards
+    // Animate cards with stagger and better performance
     cardRefs.current.forEach((card, index) => {
       if (card) {
         gsap.fromTo(
           card,
           {
             opacity: 0,
-            x: index % 2 === 0 ? -50 : 50,
+            y: 30,
           },
           {
             opacity: 1,
-            x: 0,
-            duration: 0.5,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 80%",
+              start: "top 85%",
               end: "bottom 20%",
               toggleActions: "play none none reverse",
             },
@@ -104,59 +115,62 @@ export function FeaturesPageComponent() {
       }
     });
 
-    // Animate feature cards
+    // Animate feature cards with better stagger
     if (featureCardsRef.current) {
       gsap.fromTo(
         Array.from(featureCardsRef.current.children),
         {
-          y: 50,
+          y: 40,
           opacity: 0,
         },
         {
           y: 0,
           opacity: 1,
-          duration: 0.5,
-          stagger: 0.2,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: featureCardsRef.current,
             start: "top 80%",
-            end: "bottom 20%",
             toggleActions: "play none none reverse",
           },
         }
       );
     }
-  }, []);
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, [prefersReducedMotion]);
 
   return (
     <div
-      className="bg-white min-h-screen  my-8 sm:my-[224px] overflow-x-hidden"
+      className="bg-white min-h-screen my-12 sm:my-24 md:my-32 lg:my-40 overflow-x-hidden w-full px-4 sm:px-6 md:px-8"
       ref={containerRef}
     >
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl leading-[95px] tracking-[4%] sm:text-5xl md:text-[100px] font-bold text-center mb-4">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[100px] font-bold text-center mb-4 sm:mb-6 leading-tight">
           FEATURES
         </h1>
-        <p className="text-center text-gray-600 mb-8 sm:mb-12 font-sans text-sm sm:text-base">
-          Optimize your cloud operations with Kubernetes: effortless scaling,{" "}
-          <br />
+        <p className="text-center text-gray-600 mb-12 sm:mb-16 md:mb-20 font-sans text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+          Optimize your cloud operations with Kubernetes: effortless scaling,
           robust deployment options, and automatic self-repair capabilities.
         </p>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center w-full mb-16 sm:mb-20 md:mb-24">
           <div
-            className="bg-emerald-500 rounded-3xl p-8 sm:p-16 mb-8 sm:mb-12 overflow-hidden"
+            className="bg-emerald-500 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-12 lg:p-16 w-full max-w-6xl"
             ref={emeraldBgRef}
           >
-            <div className="bg-gray-900 rounded-2xl p-4 flex h-full">
-              <div className="w-12 bg-black rounded-xl mr-4 flex flex-col items-center justify-between py-4">
+            <div className="bg-gray-900 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col sm:flex-row h-full overflow-hidden">
+              <div className="hidden sm:flex w-10 md:w-12 bg-black rounded-xl mr-3 md:mr-4 flex-col items-center justify-between py-4">
                 {/* Sidebar icons would go here */}
-                <div className="w-6 h-6 bg-gray-700 rounded-full mb-2"></div>
-                <div className="w-6 h-6 bg-gray-700 rounded-full mb-2"></div>
-                <div className="w-6 h-6 bg-gray-700 rounded-full mb-2"></div>
-                <div className="w-6 h-6 bg-gray-700 rounded-full"></div>
+                <div className="w-5 h-5 md:w-6 md:h-6 bg-gray-700 rounded-full mb-2"></div>
+                <div className="w-5 h-5 md:w-6 md:h-6 bg-gray-700 rounded-full mb-2"></div>
+                <div className="w-5 h-5 md:w-6 md:h-6 bg-gray-700 rounded-full mb-2"></div>
+                <div className="w-5 h-5 md:w-6 md:h-6 bg-gray-700 rounded-full"></div>
               </div>
-              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+              <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-6 p-2 sm:p-4">
                 <div
                   className="flex justify-center items-center"
                   ref={(el: HTMLDivElement | null) => {
@@ -210,29 +224,27 @@ export function FeaturesPageComponent() {
           </div>
         </div>
 
-        <div className="mt-16">
-          <div className="w-full">
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-              ref={featureCardsRef}
-            >
-              <FeatureCard
-                icon={CheckIcon}
-                title="Smart Kubernetes"
-                description="PerfectScale: Enhance stability, minimize waste, and gain system-wide insights."
-                highlighted={true}
-              />
-              <FeatureCard
-                icon={CogIcon}
-                title="Kubernetes Efficiency"
-                description="PerfectScale: Automated optimization for lower costs and stable, resilient systems."
-              />
-              <FeatureCard
-                icon={ChartBarIcon}
-                title="99.99% K8s availability"
-                description="Prevent breaches and safeguard performance with proactive configuration management."
-              />
-            </div>
+        <div className="mt-12 sm:mt-16 md:mt-20 w-full">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10"
+            ref={featureCardsRef}
+          >
+            <FeatureCard
+              icon={CheckIcon}
+              title="Smart Kubernetes"
+              description="PerfectScale: Enhance stability, minimize waste, and gain system-wide insights."
+              highlighted={true}
+            />
+            <FeatureCard
+              icon={CogIcon}
+              title="Kubernetes Efficiency"
+              description="PerfectScale: Automated optimization for lower costs and stable, resilient systems."
+            />
+            <FeatureCard
+              icon={ChartBarIcon}
+              title="99.99% K8s availability"
+              description="Prevent breaches and safeguard performance with proactive configuration management."
+            />
           </div>
         </div>
       </div>

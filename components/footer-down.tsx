@@ -3,27 +3,27 @@ import { Button } from "./ui/button";
 
 const FooterDown = () => {
   return (
-    <div className="border-t border-gray-200 py-12 mt-[224px]">
-      <div className="flex flex-col md:flex-row justify-between">
+    <div className="border-t border-gray-200 py-12 sm:py-16 md:py-20 mt-32 sm:mt-40 md:mt-48 lg:mt-56">
+      <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-16">
         {/* Left side: Email form and logo */}
-        <div className="flex flex-col space-y-8 md:w-1/2">
+        <div className="flex flex-col space-y-8 sm:space-y-10 lg:w-1/2">
           {/* Email Form */}
-          <div className="flex flex-col gap-4">
-            <h3 className="text-base font-semibold text-black font-sans">
-              Stay up-to-date with PerfectScale and{" "}
-              <br className="hidden md:block" />
+          <div className="flex flex-col gap-4 sm:gap-6">
+            <h3 className="text-base sm:text-lg md:text-xl font-semibold text-black font-sans leading-relaxed">
+              Stay up-to-date with PerfectScale and
+              <br className="hidden sm:block" />
               gain additional access to our team.
             </h3>
             <div>
-              <form className="flex flex-col sm:flex-row mt-4 font-sans">
+              <form className="flex flex-col sm:flex-row mt-2 sm:mt-4 font-sans gap-3">
                 <Input
                   type="email"
-                  placeholder="Email"
-                  className="rounded-full px-5 py-2 border-gray-300 focus:ring-emerald-500 focus:border-emerald-500 mb-2 sm:mb-0 sm:mr-2"
+                  placeholder="Enter your email"
+                  className="rounded-full px-5 sm:px-6 py-3 border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-base flex-1"
                 />
                 <Button
                   type="submit"
-                  className="px-5 py-2 bg-emerald-600 text-white rounded-full hover:bg-emerald-700"
+                  className="px-6 sm:px-8 py-3 bg-emerald-600 text-white rounded-full hover:bg-emerald-700 font-bold transition-colors duration-300 shadow-md hover:shadow-lg text-base"
                 >
                   Submit
                 </Button>
@@ -32,8 +32,8 @@ const FooterDown = () => {
           </div>
 
           {/* Logo */}
-          <div>
-            <h2 className="text-5xl font-bold leading-none text-[40px] md:text-[100px]">
+          <div className="mt-4 sm:mt-8">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[100px] font-bold leading-[1.1]">
               PERFECT <br />
               SCALE
             </h2>
@@ -41,13 +41,13 @@ const FooterDown = () => {
         </div>
 
         {/* Right side: Navigation */}
-        <div className="flex flex-col items-start md:items-end space-y-4 mt-8 md:mt-0 font-sans font-bold md:w-1/2">
-          <ul className="space-y-2 text-left">
+        <div className="flex flex-col items-start lg:items-end space-y-3 sm:space-y-4 mt-8 lg:mt-0 font-sans font-bold lg:w-1/2">
+          <ul className="space-y-3 sm:space-y-4 text-left lg:text-right">
             {["Platform", "Pricing", "Resources", "Company"].map((item) => (
               <li key={item}>
                 <a
                   href="#"
-                  className="text-lg text-black hover:text-gray-900 text-[20px] md:text-[40px]"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[40px] text-black hover:text-[#00b67d] inline-block hover:scale-105 transition-all duration-300"
                 >
                   {item}
                 </a>

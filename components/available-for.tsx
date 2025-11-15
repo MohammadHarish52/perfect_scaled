@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 
 export function AvailableForComponent() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -75,24 +75,24 @@ export function AvailableForComponent() {
   ];
 
   return (
-    <section className="bg-white py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl sm:text-[100px] font-bold text-center mb-[88px]">
+    <section className="bg-white py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[100px] font-bold text-center mb-12 sm:mb-16 md:mb-20 lg:mb-24">
           AVAILABLE FOR
         </h2>
         <div
           ref={containerRef}
-          className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3"
+          className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5 md:gap-6"
         >
           {providers.map((provider) => (
             <div
               key={provider.name}
-              className="provider-card bg-white border border-black rounded-[20px] p-4 flex items-center justify-center aspect-[3/2]"
+              className="provider-card bg-white border-2 border-black rounded-2xl sm:rounded-3xl p-6 sm:p-8 flex items-center justify-center aspect-[3/2] hover:shadow-lg hover:scale-105 transition-all duration-300 hover:border-emerald-500"
             >
               <img
                 src={provider.logoUrl}
                 alt={`${provider.name} logo`}
-                className="w-[160px] h-[44px] object-contain"
+                className="w-full max-w-[120px] sm:max-w-[140px] md:max-w-[160px] h-auto max-h-[44px] sm:max-h-[48px] object-contain"
               />
             </div>
           ))}

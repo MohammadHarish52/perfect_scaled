@@ -1,9 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 import FooterDown from "./footer-down";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -132,19 +131,19 @@ export function FooterComponent() {
                 <rect x="30" y="10" width="20" height="20" fill="#FBBF24" />
               </svg>
             </div>
-            <div ref={contentRef} className="text-center">
-              <h2 className="text-3xl sm:text-4xl md:text-[80px] lg:text-[100px] leading-tight sm:leading-[95px] lg:leading-[110px] tracking-[4%] font-bold text-center mb-4 text-[#fff]">
+            <div ref={contentRef} className="text-center z-10">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[100px] leading-tight font-bold text-center mb-6 sm:mb-8 text-white">
                 REDUCE YOUR <br /> CLOUD BILL
               </h2>
-              <p className="text-white mb-8 font-sans">
+              <p className="text-white mb-8 sm:mb-10 md:mb-12 font-sans text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
                 Install in minutes and instantly receive actionable
                 intelligence.
               </p>
-              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 font-sans">
-                <button className="font-sans w-full sm:w-auto px-5 py-2 text-sm sm:text-base rounded-[60px] font-bold text-[#000] bg-white">
+              <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-4 font-sans">
+                <button className="font-sans w-full sm:w-auto px-7 sm:px-8 py-3 sm:py-3.5 text-base sm:text-lg rounded-full font-bold text-black bg-white hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl">
                   Start a Trial
                 </button>
-                <button className="font-sans w-full sm:w-auto px-5 py-2 text-sm sm:text-base rounded-[60px] font-bold bg-[#00b67d] text-[black] border border-[#000]">
+                <button className="font-sans w-full sm:w-auto px-7 sm:px-8 py-3 sm:py-3.5 text-base sm:text-lg rounded-full font-bold bg-[#00b67d] text-black border-2 border-black hover:bg-[#00a072] transition-all duration-300 shadow-lg hover:shadow-xl">
                   Book a Demo
                 </button>
               </div>
